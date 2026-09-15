@@ -7,15 +7,20 @@ VPN that tunnels UDP through WebRTC TURN relays.
 
 ```sh
 brew tap romanrublev/turnrelay
-brew install --HEAD romanrublev/turnrelay/turnrelay
+HOMEBREW_NO_SANDBOX=1 brew install --HEAD romanrublev/turnrelay/turnrelay
 sudo turnrelay install
 ```
 
-Then create your profile and connect:
+`HOMEBREW_NO_SANDBOX=1` is required: the formula builds from source, and the
+build fetches Go modules (the sing-box dependency tree), which Homebrew's build
+sandbox blocks. Vendoring those deps is ~1.7 GB, so it is not committed; the
+proper long-term fix is a prebuilt bottle attached to a GitHub release.
+
+Then create your profile (chmod 600) and connect:
 
 ```sh
 # ~/Library/Application Support/turnrelay/profile.json (macOS)
-# ~/.config/turnrelay/profile.json (Linux), chmod 600
+# ~/.config/turnrelay/profile.json (Linux)
 turnrelay up
 turnrelay status
 turnrelay down
