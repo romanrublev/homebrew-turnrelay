@@ -3,20 +3,28 @@
 Homebrew tap for [turnrelay](https://github.com/romanrublev/turnrelay), a system
 VPN that tunnels UDP through WebRTC TURN relays.
 
-## Install
+## Install (macOS Apple Silicon)
 
 ```sh
 brew tap romanrublev/turnrelay
-HOMEBREW_NO_SANDBOX=1 brew install --HEAD romanrublev/turnrelay/turnrelay
+brew install romanrublev/turnrelay/turnrelay
 sudo turnrelay install
 ```
 
-`HOMEBREW_NO_SANDBOX=1` is required: the formula builds from source, and the
-build fetches Go modules (the sing-box dependency tree), which Homebrew's build
-sandbox blocks. Vendoring those deps is ~1.7 GB, so it is not committed; the
-proper long-term fix is a prebuilt bottle attached to a GitHub release.
+This pours a prebuilt binary (no build, no sandbox flag).
 
-Then create your profile (chmod 600) and connect:
+### Other platforms / latest main (build from source)
+
+```sh
+HOMEBREW_NO_SANDBOX=1 brew install --HEAD romanrublev/turnrelay/turnrelay
+```
+
+`HOMEBREW_NO_SANDBOX=1` is required because the source build fetches Go modules,
+which Homebrew's build sandbox blocks.
+
+## Use
+
+Create your profile (chmod 600) and connect:
 
 ```sh
 # ~/Library/Application Support/turnrelay/profile.json (macOS)
