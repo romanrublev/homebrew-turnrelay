@@ -5,17 +5,16 @@ class Turnrelay < Formula
   license "GPL-3.0-or-later"
 
   # Prebuilt binary for Apple Silicon: `brew install` pours it, no build and no
-  # sandbox to disable.
+  # sandbox to disable. Other platforms (and `brew install --HEAD`) build from
+  # source, which fetches Go modules and so needs `HOMEBREW_NO_SANDBOX=1`.
+  head "https://github.com/romanrublev/turnrelay.git", branch: "main"
+
   on_macos do
     on_arm do
       url "https://github.com/romanrublev/turnrelay/releases/download/v0.3.0-beta/turnrelay-darwin-arm64.tar.gz"
       sha256 "ad2a7a7b723ff5a1a0f74d413eba8e46264051485171d432e0d961b79d48594d"
     end
   end
-
-  # Other platforms (and `brew install --HEAD`) build from source. That build
-  # fetches Go modules, so it needs `HOMEBREW_NO_SANDBOX=1`.
-  head "https://github.com/romanrublev/turnrelay.git", branch: "main"
 
   depends_on "go" => :build
 
