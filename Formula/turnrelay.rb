@@ -1,7 +1,7 @@
 class Turnrelay < Formula
   desc "Tunnel UDP through WebRTC TURN relays as a system VPN"
   homepage "https://github.com/romanrublev/turnrelay"
-  version "0.6.2-beta"
+  version "0.7.0-beta"
   license "GPL-3.0-or-later"
 
   # Prebuilt binary for Apple Silicon: `brew install` pours it, no build and no
@@ -13,8 +13,8 @@ class Turnrelay < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/romanrublev/turnrelay/releases/download/v0.6.2-beta/turnrelay-darwin-arm64.tar.gz"
-      sha256 "1f9fb14bd203f56d46410926d84a697cf90eb22942836154f8d652b40b3792ae"
+      url "https://github.com/romanrublev/turnrelay/releases/download/v0.7.0-beta/turnrelay-darwin-arm64.tar.gz"
+      sha256 "0b8fb9383eaf554f2b502ffba70d8f38d29a358c3d07748060cf43f9d4ac955f"
     end
   end
 
@@ -47,8 +47,11 @@ class Turnrelay < Formula
         turnrelay status
         turnrelay down
 
-      Profile fields (link, server, connections, mode, wg_private_key,
-      wg_peer_public_key, wg_address, optional log_level): see #{homepage}.
+      Profile fields: server, connections, mode, one or more VK call links
+      (link, or links as an array), optional log_level. For the default
+      WireGuard transport also wg_private_key, wg_peer_public_key, wg_address;
+      for an exit server instead server_type "exit", password and the optional
+      server_fingerprint that pins the server. See #{homepage}.
 
       To remove the service: sudo turnrelay uninstall
     EOS
